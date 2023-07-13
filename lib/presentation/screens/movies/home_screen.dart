@@ -1,6 +1,8 @@
-
-import 'package:cinemapedia/presentation/providers/movies/movies_providers.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
@@ -14,7 +16,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
 
-        body: _HomeView()
+        body: _HomeView(),
+        bottomNavigationBar: CustomBottomNavigation(),
     );
   }
 }
@@ -41,19 +44,41 @@ class _HomeViewState extends ConsumerState<_HomeView> {
 
     final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider );
 
+    final slideshowMovies = ref.watch( moviesSlideshowProvider );
+
     // if( nowPlayingMovies.isEmpty ) return const CircularProgressIndicator();
 
-    return ListView.builder(
-      itemCount: nowPlayingMovies.length,
-      itemBuilder: ( context, index ){
+    return Column(
 
-        final movie = nowPlayingMovies[ index ];
+      children: [
 
-        return ListTile(
-          title: Text( movie.title ),
-        );
+        const CustomAppbar(),
 
-      }
+        MoviesSlideshow( movies: slideshowMovies ),
+
+        MovieHorizontalListview(
+          movies: nowPlayingMovies,
+          title: 'En cines',
+          subTitle: 'Lunes 20',
+        )
+
+        // Expanded(
+        //   child: ListView.builder(
+        //       itemCount: nowPlayingMovies.length,
+        //       itemBuilder: ( context, index ){
+        
+        //   final movie = nowPlayingMovies[ index ];
+        
+        //   return ListTile(
+        //     title: Text( movie.title ),
+        //   );
+        
+        //       }
+        //     ),
+        // )
+
+      ],
+
     );
   }
 }
