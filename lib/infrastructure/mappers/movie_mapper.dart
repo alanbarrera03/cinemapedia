@@ -16,9 +16,8 @@ class MovieMapper {
       popularity:       moviedb.popularity,
       posterPath:       ( moviedb.posterPath != '' )
         ? 'https://image.tmdb.org/t/p/w500/${ moviedb.posterPath }'
-        : 'no-poster',
-        //'https://t4.ftcdn.net/jpg/02/51/95/53/360_F_251955356_FAQH0U1y1TZw3ZcdPGybwUkH90a3VAhb.jpg',
-      releaseDate:      moviedb.releaseDate,
+        : 'https://t4.ftcdn.net/jpg/02/51/95/53/360_F_251955356_FAQH0U1y1TZw3ZcdPGybwUkH90a3VAhb.jpg',
+      releaseDate:      moviedb.releaseDate != null ? moviedb.releaseDate! : DateTime.now(),
       title:            moviedb.title,
       video:            moviedb.video,
       voteAverage:      moviedb.voteAverage,
